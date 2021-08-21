@@ -5,54 +5,87 @@ let slideIndex = 0;
 
 //Crear una función createSlider para crear una diapositiva
 const createSlide = () => {
-    if (slideIndex >= movies.length) {
-        slideIndex = 0;
-    }
-    // creando elemento DOM
-    let slide = document.createElement("div");
-    let imgElement = document.createElement("img");
-    let content = document.createElement("div");
-    let h1 = document.createElement("h1");
-    let p = document.createElement("p");
+  if (slideIndex >= movies.length) {
+    slideIndex = 0;
+  }
+  // creando elemento DOM
+  let slide = document.createElement("div");
+  let imgElement = document.createElement("img");
+  let content = document.createElement("div");
+  let h1 = document.createElement("h1");
+  let p = document.createElement("p");
 };
 //Estructura HTML
 {
-    // adjuntando todos los elementos
-    imgElement.appendChild(document.createTextNode(""));
-    h1.appendChild(document.createTextNode(movies[slideIndex].name));
-    p.appendChild(document.createTextNode(movies[slideIndex].des));
-    content.appendChild(h1);
-    content.appendChild(p);
-    slide.appendChild(content);
-    slide.appendChild(imgElement);
-    carousel.appendChild(slide);
+  // adjuntando todos los elementos
+  imgElement.appendChild(document.createTextNode(""));
+  h1.appendChild(document.createTextNode(movies[slideIndex].name));
+  p.appendChild(document.createTextNode(movies[slideIndex].des));
+  content.appendChild(h1);
+  content.appendChild(p);
+  slide.appendChild(content);
+  slide.appendChild(imgElement);
+  carousel.appendChild(slide);
 }
 
 {
-    // configuración de imagen
-    imgElement.src = movies[slideIndex].image;
-    slideIndex++;
+  // configuración de imagen
+  imgElement.src = movies[slideIndex].image;
+  slideIndex++;
 
-    // Configuración de elementos de clase
-    slide.className = "slider";
-    content.className = "slide-content";
-    h1.className = "movie-title";
-    p.className = "movie-des";
+  // Configuración de elementos de clase
+  slide.className = "slider";
+  content.className = "slide-content";
+  h1.className = "movie-title";
+  p.className = "movie-des";
 
-    sliders.push(slide);
+  sliders.push(slide);
 }
 {
-    if (sliders.length) {
-        sliders[0].style.marginLeft = `calc(-${100 * (sliders.length - 2)}% - ${
-        30 * (sliders.length - 2)
-        }px)`;
-    }
+  if (sliders.length) {
+    sliders[0].style.marginLeft = `calc(-${100 * (sliders.length - 2)}% - ${
+      30 * (sliders.length - 2)
+    }px)`;
+  }
 }
 for (let i = 0; i < 3; i++) {
-    createSlide();
+  createSlide();
 }
 
 setInterval(() => {
-    createSlide();
+  createSlide();
 }, 3000);
 
+/// Tarjeta de videos
+
+const videoCards = [...document.querySelectorAll(".video-card")];
+
+videoCards.forEach((item) => {
+  item.addEventListener("mouseover", () => {
+    let video = item.children[1];
+    video.play();
+  });
+  item.addEventListener("mouseleave", () => {
+    let video = item.children[1];
+    video.pause();
+  });
+});
+
+// card sliders
+
+let cardContainers = [...document.querySelectorAll(".card-container")];
+let preBtns = [...document.querySelectorAll(".pre-btn")];
+let nxtBtns = [...document.querySelectorAll(".nxt-btn")];
+
+cardContainers.forEach((item, i) => {
+  let containerDimensions = item.getBoundingClientRect();
+  let containerWidth = containerDimensions.width;
+
+  nxtBtns[i].addEventListener("click", () => {
+    item.scrollLeft += containerWidth - 200;
+  });
+
+  preBtns[i].addEventListener("click", () => {
+    item.scrollLeft -= containerWidth + 200;
+  });
+});
