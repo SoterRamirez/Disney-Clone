@@ -1,53 +1,49 @@
 const carousel = document.querySelector(".carousel");
 let sliders = [];
-//para rastrear el índice de diapositivas actual
+
 let slideIndex = 0;
 
-//Crear una función createSlider para crear una diapositiva
 const createSlide = () => {
   if (slideIndex >= movies.length) {
     slideIndex = 0;
   }
-  // creando elemento DOM
+
+  // Creando elementos en el DOM
   let slide = document.createElement("div");
   let imgElement = document.createElement("img");
   let content = document.createElement("div");
   let h1 = document.createElement("h1");
   let p = document.createElement("p");
-};
-//Estructura HTML
-{
-  // adjuntando todos los elementos
+
+  //adjuntando todos los elementos
   imgElement.appendChild(document.createTextNode(""));
   h1.appendChild(document.createTextNode(movies[slideIndex].name));
   p.appendChild(document.createTextNode(movies[slideIndex].des));
   content.appendChild(h1);
   content.appendChild(p);
-  slide.appendChild(content);
   slide.appendChild(imgElement);
+  slide.appendChild(content);
   carousel.appendChild(slide);
-}
 
-{
-  // configuración de imagen
+  //configurando imagen
   imgElement.src = movies[slideIndex].image;
   slideIndex++;
 
-  // Configuración de elementos de clase
+  //establecer elementos classname
   slide.className = "slider";
   content.className = "slide-content";
   h1.className = "movie-title";
   p.className = "movie-des";
 
   sliders.push(slide);
-}
-{
+
   if (sliders.length) {
-    sliders[0].style.marginLeft = `calc(-${100 * (sliders.length - 2)}% - ${
+    sliders[0].style.marginleft = `calc(-${100 * (sliders.length - 2)}% - ${
       30 * (sliders.length - 2)
     }px)`;
   }
-}
+};
+
 for (let i = 0; i < 3; i++) {
   createSlide();
 }
@@ -56,7 +52,7 @@ setInterval(() => {
   createSlide();
 }, 3000);
 
-/// Tarjeta de videos
+//tarjetas de video
 
 const videoCards = [...document.querySelectorAll(".video-card")];
 
@@ -71,10 +67,8 @@ videoCards.forEach((item) => {
   });
 });
 
-// card sliders
-
 let cardContainers = [...document.querySelectorAll(".card-container")];
-let preBtns = [...document.querySelectorAll(".pre-btn")];
+let preBTns = [...document.querySelectorAll(".pre-btn")];
 let nxtBtns = [...document.querySelectorAll(".nxt-btn")];
 
 cardContainers.forEach((item, i) => {
@@ -85,7 +79,7 @@ cardContainers.forEach((item, i) => {
     item.scrollLeft += containerWidth - 200;
   });
 
-  preBtns[i].addEventListener("click", () => {
+  preBTns[i].addEventListener("click", () => {
     item.scrollLeft -= containerWidth + 200;
   });
 });
